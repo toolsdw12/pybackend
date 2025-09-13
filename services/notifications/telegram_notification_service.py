@@ -1,6 +1,6 @@
 import os
 import logging
-import requests
+import httpx
 from pathlib import Path
 from typing import Optional, Dict
 import io
@@ -44,7 +44,7 @@ class TelegramNotificationService:
                 data['parse_mode'] = parse_mode
 
             # Send the message
-            response = requests.post(
+            response = httpx.post(
                 f"{self.base_url}/sendMessage",
                 data=data
             )
@@ -84,7 +84,7 @@ class TelegramNotificationService:
                     data['caption'] = caption
 
                 # Send the file
-                response = requests.post(
+                response = httpx.post(
                     f"{self.base_url}/sendDocument",
                     files=files,
                     data=data
@@ -125,7 +125,7 @@ class TelegramNotificationService:
                 data['caption'] = caption
 
             # Send the file
-            response = requests.post(
+            response = httpx.post(
                 f"{self.base_url}/sendDocument",
                 files=files,
                 data=data

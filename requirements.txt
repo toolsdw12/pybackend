@@ -11,3 +11,4 @@ boto3==1.37.33
 anthropic==0.49.0
 openai==1.75.0
 google-genai==1.12.1
+pytz==2025.2
