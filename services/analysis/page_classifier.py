@@ -14,9 +14,9 @@ logger = logging.getLogger(__name__)
 class PageClassifier:
     # Configuration parameters loaded from environment variables
     # These can be customized through .env file
-    MIN_FINANCIAL_TERMS = int(os.getenv('MIN_FINANCIAL_TERMS'))  # Minimum number of financial terms to consider a page
-    ZSCORE_THRESHOLD = float(os.getenv('ZSCORE_THRESHOLD'))    # Threshold for identifying outliers
-    GAP_PERCENTAGE_THRESHOLD = float(os.getenv('GAP_PERCENTAGE_THRESHOLD'))  # Threshold for significant gap between z-scores
+    MIN_FINANCIAL_TERMS = int(os.getenv('MIN_FINANCIAL_TERMS', 7))  # Minimum number of financial terms to consider a page
+    ZSCORE_THRESHOLD = float(os.getenv('ZSCORE_THRESHOLD', 1.0))    # Threshold for identifying outliers
+    GAP_PERCENTAGE_THRESHOLD = float(os.getenv('GAP_PERCENTAGE_THRESHOLD', 30.0))  # Threshold for significant gap between z-scores
 
     # Classification terms for determining page types
     CLASSIFICATION_TERMS = {
