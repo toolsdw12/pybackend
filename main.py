@@ -110,3 +110,7 @@ async def extract_text(
 @app.get("/")
 async def read_root():
     return {"message": config.API_TITLE}
+
+@app.get("/test")
+async def test_endpoint():
+    return {"message": "API is working correctly", "status": "success"}
