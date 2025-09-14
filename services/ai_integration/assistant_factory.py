@@ -1,7 +1,6 @@
 from typing import Dict, Type
 from .base_assistant import BaseAssistant
 from .providers.openai_assistant import OpenAIAssistant
-from .providers.anthropic_assistant import AnthropicAssistant
 from .providers.gemini_assistant import GeminiAssistant
 import logging
 
@@ -12,7 +11,6 @@ class AssistantFactory:
     
     _assistants: Dict[str, Type[BaseAssistant]] = {
         "openai": OpenAIAssistant,
-        "anthropic": AnthropicAssistant,
         "gemini": GeminiAssistant,
         # Add more assistant implementations here as they are created
     }
@@ -23,7 +21,7 @@ class AssistantFactory:
         Get an instance of the specified AI assistant
         
         Args:
-            assistant_type: The type of assistant to create (e.g., "openai", "anthropic", "gemini")
+            assistant_type: The type of assistant to create (e.g., "openai", "gemini")
             
         Returns:
             An instance of the specified AI assistant

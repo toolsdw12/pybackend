@@ -1,7 +1,7 @@
 """
 Services package containing various service modules for the application.
 """
-from .ai_integration import BaseAssistant, OpenAIAssistant, AnthropicAssistant, GeminiAssistant, AssistantFactory
+from .ai_integration import BaseAssistant, OpenAIAssistant, GeminiAssistant, AssistantFactory
 from .analysis import PageClassifier, TextAnalyzer, ResultTypeConfig
 from .storage import S3Service
 from .ocr_integration import BaseOCR, OCRFactory
@@ -11,7 +11,7 @@ from .notifications import ExtractionStatusFormatter, TelegramNotificationServic
 
 __all__ = [
     # AI Integration
-    'BaseAssistant', 'OpenAIAssistant', 'AnthropicAssistant', 'GeminiAssistant', 'AssistantFactory',
+    'BaseAssistant', 'OpenAIAssistant', 'GeminiAssistant', 'AssistantFactory',
     # Analysis
     'PageClassifier', 'TextAnalyzer', 'ResultTypeConfig',
     # Storage
