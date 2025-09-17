@@ -2,6 +2,8 @@ from typing import Dict, Type
 from .base_assistant import BaseAssistant
 from .providers.openai_assistant import OpenAIAssistant
 from .providers.gemini_assistant import GeminiAssistant
+from .providers.vertexAI_assistant import VertexAIAssistant
+from .providers.open_router import OpenRouterAssistant
 import logging
 
 logger = logging.getLogger(__name__)
@@ -12,6 +14,8 @@ class AssistantFactory:
     _assistants: Dict[str, Type[BaseAssistant]] = {
         "openai": OpenAIAssistant,
         "gemini": GeminiAssistant,
+        "vertexai": VertexAIAssistant,
+        "openrouter": OpenRouterAssistant,
         # Add more assistant implementations here as they are created
     }
     

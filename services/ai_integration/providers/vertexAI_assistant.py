@@ -10,20 +10,24 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class GeminiAssistant(BaseAssistant):
-    """Gemini implementation of the AI assistant service"""
+class VertexAIAssistant(BaseAssistant):
+    """VertexAI implementation of the AI assistant service"""
     
     def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
-        if not self.api_key:
-            raise ValueError("Gemini API key not configured")
-        
-        self.client = genai.Client(api_key=self.api_key)
+        project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
+        location = os.getenv('GOOGLE_CLOUD_VERTEX_LOCATION', 'us-west4')
+
+        if not project_id or not location:
+            raise ValueError("GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_VERTEX_LOCATION environment variables must be set")
+
+        self.client = genai.Client(
+            vertexai=True, project=project_id, location=location
+        )
         self.default_model = "gemini-2.0-flash"
         
     async def extract_financial_data(self, ocr_text: str) -> Dict:
         """
-        Extract financial data from OCR text using Gemini
+        Extract financial data from OCR text using VertexAI
         
         Args:
             ocr_text: The OCR text to analyze
@@ -32,7 +36,7 @@ class GeminiAssistant(BaseAssistant):
             Dictionary containing extracted financial data and timing information
         """
         start_time = time.time()
-        logger.info("Starting financial data extraction with Gemini")
+        logger.info("Starting financial data extraction with VertexAI")
 
         try:
             system_prompt = """You are a specialized financial data extraction expert, trained to analyze quarterly financial statements with precision. Your purpose is to transform unstructured financial text into structured, machine-readable data.
