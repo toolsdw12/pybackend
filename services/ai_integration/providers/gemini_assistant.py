@@ -15,11 +15,11 @@ class GeminiAssistant(BaseAssistant):
     
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
+        self.default_model = os.getenv("Gemini_AI_MODEL")
         if not self.api_key:
             raise ValueError("Gemini API key not configured")
         
         self.client = genai.Client(api_key=self.api_key)
-        self.default_model = "gemini-2.0-flash"
         
     async def extract_financial_data(self, ocr_text: str) -> Dict:
         """

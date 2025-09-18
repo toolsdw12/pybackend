@@ -13,11 +13,11 @@ class OpenAIAssistant(BaseAssistant):
     
     def __init__(self):
         self.api_key = os.getenv("OPENAI_API_KEY")
+        self.default_model = os.getenv("OpenAI_AI_MODEL")
         if not self.api_key:
             raise ValueError("OpenAI API key not configured")
         
         self.client = openai.AsyncOpenAI(api_key=self.api_key)
-        self.default_model = "gpt-4.1-mini-2025-04-14"
             
     async def extract_financial_data(self, ocr_text: str) -> Dict:
         """

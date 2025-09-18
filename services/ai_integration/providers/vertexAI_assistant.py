@@ -15,23 +15,24 @@ class VertexAIAssistant(BaseAssistant):
     """VertexAI implementation of the AI assistant service"""
     
     def __init__(self):
-        project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
         location = os.getenv('GOOGLE_CLOUD_VERTEX_LOCATION', 'us-west4')
-        credentials_json = os.getenv('GOOGLE_CREDENTIALS')
+        credentials_json = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
+        self.default_model = os.getenv('VertexAI_AI_MODEL')
 
-        if not project_id or not credentials_json:
-            raise ValueError("GOOGLE_CLOUD_PROJECT and GOOGLE_CREDENTIALS environment variables must be set")
+        if not credentials_json:
+            raise ValueError("GOOGLE_CREDENTIALS environment variable must be set")
 
-        credentials_dict = json.loads(credentials_json)
         credentials = service_account.Credentials.from_service_account_info(
-            credentials_dict,
-            scopes=['https://www.googleapis.com/auth/cloud-platform']
+            credentials_json,
+            scopes=['https://www.googleapis.com/auth/aiplatform']
         )
 
         self.client = genai.Client(
-            vertexai=True, project=project_id, location=location, credentials=credentials
+            vertexai=True,
+            project=credentials_json['project_id'],
+            location=location,
+            credentials=credentials
         )
-        self.default_model = "gemini-2.0-flash"
         
     async def extract_financial_data(self, ocr_text: str) -> Dict:
         """

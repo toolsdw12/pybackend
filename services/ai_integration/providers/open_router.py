@@ -13,6 +13,7 @@ class OpenRouterAssistant(BaseAssistant):
     
     def __init__(self):
         self.api_key = os.getenv("OPENROUTER_API_KEY")
+        self.default_model = os.getenv("OpenRouter_AI_MODEL")
         if not self.api_key:
             raise ValueError("OpenRouter API key not configured")
 
@@ -20,7 +21,7 @@ class OpenRouterAssistant(BaseAssistant):
             base_url="https://openrouter.ai/api/v1",
             api_key=self.api_key,
         )
-        self.default_model = "openai/gpt-4.1-mini"
+        
             
     async def extract_financial_data(self, ocr_text: str) -> Dict:
         """
