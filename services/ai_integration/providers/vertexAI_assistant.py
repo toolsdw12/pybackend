@@ -22,12 +22,11 @@ class VertexAIAssistant(BaseAssistant):
         if not project_id or not credentials_json:
             raise ValueError("GOOGLE_CLOUD_PROJECT and GOOGLE_CREDENTIALS environment variables must be set")
 
-        try:
-            credentials_dict = json.loads(credentials_json)
-            credentials = service_account.Credentials.from_service_account_info(
-                credentials_dict,
-                scopes=['https://www.googleapis.com/auth/cloud-platform']
-            )
+        credentials_dict = json.loads(credentials_json)
+        credentials = service_account.Credentials.from_service_account_info(
+            credentials_dict,
+            scopes=['https://www.googleapis.com/auth/cloud-platform']
+        )
 
         self.client = genai.Client(
             vertexai=True, project=project_id, location=location, credentials=credentials
