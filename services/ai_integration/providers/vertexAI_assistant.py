@@ -4,6 +4,7 @@ import time
 from typing import Dict
 from google import genai
 from google.genai import types
+from google.oauth2 import service_account
 from ..base_assistant import BaseAssistant
 import logging
 
@@ -16,12 +17,20 @@ class VertexAIAssistant(BaseAssistant):
     def __init__(self):
         project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
         location = os.getenv('GOOGLE_CLOUD_VERTEX_LOCATION', 'us-west4')
+        credentials_json = os.getenv('GOOGLE_CREDENTIALS')
 
-        if not project_id or not location:
-            raise ValueError("GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_VERTEX_LOCATION environment variables must be set")
+        if not project_id or not credentials_json:
+            raise ValueError("GOOGLE_CLOUD_PROJECT and GOOGLE_CREDENTIALS environment variables must be set")
+
+        try:
+            credentials_dict = json.loads(credentials_json)
+            credentials = service_account.Credentials.from_service_account_info(
+                credentials_dict,
+                scopes=['https://www.googleapis.com/auth/cloud-platform']
+            )
 
         self.client = genai.Client(
-            vertexai=True, project=project_id, location=location
+            vertexai=True, project=project_id, location=location, credentials=credentials
         )
         self.default_model = "gemini-2.0-flash"
         
