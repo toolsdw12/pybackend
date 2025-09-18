@@ -24,7 +24,7 @@ class VertexAIAssistant(BaseAssistant):
 
         credentials = service_account.Credentials.from_service_account_info(
             credentials_json,
-            scopes=['https://www.googleapis.com/auth/aiplatform']
+            scopes=['https://www.googleapis.com/auth/cloud-platform']
         )
 
         self.client = genai.Client(
