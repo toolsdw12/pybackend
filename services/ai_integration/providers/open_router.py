@@ -17,7 +17,7 @@ class OpenRouterAssistant(BaseAssistant):
         if not self.api_key:
             raise ValueError("OpenRouter API key not configured")
 
-        self.client = openai.OpenAI(
+        self.client = openai.AsyncOpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=self.api_key,
         )
